@@ -17,7 +17,7 @@ public enum Option {
             String name=sc.next();
             System.out.println("Введите id отдела:");
             int depid=sc.nextInt();
-            Service.addEmployee(new Employee(id,name,depid));
+            sv.addEmployee(new Employee(id,name,depid));
         }
     },
     DeleteEmployee {
@@ -28,7 +28,7 @@ public enum Option {
         void action() {
             System.out.println("Введите его id:");
             int id=sc.nextInt();
-            Service.removeEmployee(new Employee(id,"",0));
+            sv.removeEmployee(new Employee(id,"",0));
         }
     },
     AddDepartment {
@@ -41,7 +41,7 @@ public enum Option {
             int id=sc.nextInt();
             System.out.println("Введите его название:");
             String name=sc.next();
-            Service.addDepartment(new Department(id,name));
+            sv.addDepartment(new Department(id, name));
         }
     },
     DeleteDepartment {
@@ -52,7 +52,7 @@ public enum Option {
         void action() {
             System.out.println("Введите его id:");
             int id=sc.nextInt();
-            Service.removeDepartment(new Department(id,""));
+            sv.removeDepartment(new Department(id, ""));
         }
     },
     CLEAR_DB {
@@ -61,7 +61,7 @@ public enum Option {
         }
 
         void action() {
-            Service.createDB();
+            sv.createDB();
         }
 
     },
@@ -121,7 +121,8 @@ public enum Option {
             System.out.println("выход");
         }
     },;
-    
+
+    private static Service sv = new Service("jdbc:h2:.\\Office");
     Scanner sc = new Scanner(System.in);
     abstract String getText();
     abstract void action();

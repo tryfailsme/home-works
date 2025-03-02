@@ -8,8 +8,12 @@ import java.sql.Statement;
 
 public class Service {
 
-    public static void createDB() {
-        try (Connection con = DriverManager.getConnection("jdbc:h2:.\\Office")) {
+    private final String url;
+    public Service (String url) {
+        this.url = url;
+    }
+    public void createDB() {
+        try (Connection con = DriverManager.getConnection(url)) {
             Statement stm = con.createStatement();
             stm.executeUpdate("DROP TABLE Department IF EXISTS");
             stm.executeUpdate("CREATE TABLE Department(ID INT PRIMARY KEY, NAME VARCHAR(255))");
@@ -32,8 +36,8 @@ public class Service {
         }
     }
 
-    public static void addDepartment(Department d) {
-        try (Connection con = DriverManager.getConnection("jdbc:h2:.\\Office")) {
+    public void addDepartment(Department d) {
+        try (Connection con = DriverManager.getConnection(url)) {
             PreparedStatement stm = con.prepareStatement("INSERT INTO Department VALUES(?,?)");
             stm.setInt(1, d.departmentID);
             stm.setString(2, d.getName());
@@ -43,8 +47,8 @@ public class Service {
         }
     }
 
-    public static void removeDepartment(Department d) {
-        try (Connection con = DriverManager.getConnection("jdbc:h2:.\\Office")) {
+    public void removeDepartment(Department d) {
+        try (Connection con = DriverManager.getConnection(url)) {
             PreparedStatement stm = con.prepareStatement("DELETE FROM Department WHERE ID=?");
             stm.setInt(1, d.departmentID);
             stm.executeUpdate();
@@ -53,8 +57,8 @@ public class Service {
         }
     }
 
-    public static void addEmployee(Employee empl) {
-        try (Connection con = DriverManager.getConnection("jdbc:h2:.\\Office")) {
+    public void addEmployee(Employee empl) {
+        try (Connection con = DriverManager.getConnection(url)) {
             PreparedStatement stm = con.prepareStatement("INSERT INTO Employee VALUES(?,?,?)");
             stm.setInt(1, empl.getEmployeeId());
             stm.setString(2, empl.getName());
@@ -65,8 +69,8 @@ public class Service {
         }
     }
 
-    public static void removeEmployee(Employee empl) {
-        try (Connection con = DriverManager.getConnection("jdbc:h2:.\\Office")) {
+    public void removeEmployee(Employee empl) {
+        try (Connection con = DriverManager.getConnection(url)) {
             PreparedStatement stm = con.prepareStatement("DELETE FROM Employee WHERE ID=?");
             stm.setInt(1, empl.getEmployeeId());
             stm.executeUpdate();
