@@ -18,7 +18,7 @@ public class Service {
             stm.executeUpdate("INSERT INTO Department VALUES(3,'HR')");
 
             stm.executeUpdate("DROP TABLE Employee IF EXISTS");
-            stm.executeUpdate("CREATE TABLE Employee(ID INT PRIMARY KEY, NAME VARCHAR(255), DepartmentID INT)");
+            stm.executeUpdate("CREATE TABLE Employee(ID INT PRIMARY KEY, NAME VARCHAR(255), DepartmentID INT REFERENCES Department(ID) ON DELETE CASCADE)");
             stm.executeUpdate("INSERT INTO Employee VALUES(1,'Pete',1)");
             stm.executeUpdate("INSERT INTO Employee VALUES(2,'Ann',1)");
 
